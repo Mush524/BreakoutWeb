@@ -197,22 +197,22 @@ function draw()
     {
         if (rightPressed) 
         {
-            paddleX = Math.min(paddleX + 7, canvas.width - paddleWidth);
+            paddleX = Math.min(paddleX + 15, canvas.width - paddleWidth);
         } 
         else if (leftPressed) 
         {
-            paddleX = Math.max(paddleX - 7, 0);
+            paddleX = Math.max(paddleX - 15, 0);
         }
     }
     else
     {
         if (rightPressed) 
         {
-            paddleX = Math.min(paddleX + 25, canvas.width - paddleWidth);
+            paddleX = Math.min(paddleX + 30, canvas.width - paddleWidth);
         } 
         else if (leftPressed) 
         {
-            paddleX = Math.max(paddleX - 25, 0);
+            paddleX = Math.max(paddleX - 30, 0);
         }
     }
     
