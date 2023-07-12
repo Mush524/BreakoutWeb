@@ -16,8 +16,8 @@ let tx = 0;
 let ty = 0;
 
 const ballRadius = 6;
-const paddleHeight = 10;
-const paddleWidth = 100;
+const paddleHeight = 15;
+const paddleWidth = 120;
 let paddleX = (canvas.width - paddleWidth) / 2;
 let paddleY = 0;
 
@@ -89,7 +89,8 @@ function drawBall()
 function drawPaddle() 
 {
     ctx.beginPath();
-    paddleY = canvas.height - paddleHeight - 25;
+    //change -80 to change paddleY
+    paddleY = canvas.height - paddleHeight - 80;
     ctx.rect(paddleX, paddleY, paddleWidth, paddleHeight);
 
     const grdPaddle = ctx.createLinearGradient(paddleX-paddleWidth, paddleY-paddleHeight, paddleX+paddleWidth, paddleY+paddleHeight);
@@ -153,7 +154,8 @@ function draw()
         dy = -dy;
         playSound("hit");
     } 
-    else if (y + dy > canvas.height - ballRadius - 35) 
+    //the last value should be paddleHeight + paddleY
+    else if (y + dy > canvas.height - ballRadius - 95) 
     {
         if (x > paddleX && x < paddleX + paddleWidth && y < paddleY) 
         {
@@ -162,7 +164,8 @@ function draw()
         } 
     }
 
-    if (y + dy > canvas.height - ballRadius + 80)
+    //+300 to make it wait a bit before making a new ball
+    if (y + dy > canvas.height - ballRadius + 300)
     {
 
         lives--;
