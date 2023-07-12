@@ -21,6 +21,7 @@ const paddleWidth = 120;
 let paddleX = (canvas.width - paddleWidth) / 2;
 let paddleY = 0;
 
+let downPressed = false;
 let rightPressed = false;
 let leftPressed = false;
 
@@ -192,13 +193,27 @@ function draw()
     
     
     //Collision detection of the paddle
-    if (rightPressed) 
+    if (downPressed)
     {
-        paddleX = Math.min(paddleX + 15, canvas.width - paddleWidth);
-    } 
-    else if (leftPressed) 
+        if (rightPressed) 
+        {
+            paddleX = Math.min(paddleX + 7, canvas.width - paddleWidth);
+        } 
+        else if (leftPressed) 
+        {
+            paddleX = Math.max(paddleX - 7, 0);
+        }
+    }
+    else
     {
-        paddleX = Math.max(paddleX - 15, 0);
+        if (rightPressed) 
+        {
+            paddleX = Math.min(paddleX + 25, canvas.width - paddleWidth);
+        } 
+        else if (leftPressed) 
+        {
+            paddleX = Math.max(paddleX - 25, 0);
+        }
     }
     
     requestAnimationFrame(draw);
@@ -218,6 +233,10 @@ function keyDownHandler(e)
     {
         leftPressed = true;
     }
+    else if (e.key === "Down" || e.key === "ArrowDown")
+    {
+        downPressed = true;
+    }
 }
 
 function keyUpHandler(e) 
@@ -230,8 +249,11 @@ function keyUpHandler(e)
     {
         leftPressed = false;
     }
+    else if (e.key === "Down" || e.key === "ArrowDown")
+    {
+        downPressed = false;   
+    }
 }
-
 
 function mouseMoveHandler(e) 
 {
