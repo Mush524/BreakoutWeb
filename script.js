@@ -194,11 +194,11 @@ function draw()
     //Collision detection of the paddle
     if (rightPressed) 
     {
-        paddleX = Math.min(paddleX + 5, canvas.width - paddleWidth);
+        paddleX = Math.min(paddleX + 15, canvas.width - paddleWidth);
     } 
     else if (leftPressed) 
     {
-        paddleX = Math.max(paddleX - 5, 0);
+        paddleX = Math.max(paddleX - 15, 0);
     }
     
     requestAnimationFrame(draw);
@@ -207,6 +207,7 @@ document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false);
 
+//Event hnadler for the paddle
 function keyDownHandler(e) 
 {
     if (e.key === "Right" || e.key === "ArrowRight") 
@@ -219,7 +220,6 @@ function keyDownHandler(e)
     }
 }
 
-//Event hnadler for the paddle
 function keyUpHandler(e) 
 {
     if (e.key === "Right" || e.key === "ArrowRight") 
@@ -231,6 +231,7 @@ function keyUpHandler(e)
         leftPressed = false;
     }
 }
+
 
 function mouseMoveHandler(e) 
 {
