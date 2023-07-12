@@ -3,9 +3,6 @@ const layer2 = document.getElementById("layer2");
 const ctx = canvas.getContext("2d");
 const ctxTrail = layer2.getContext("2d");
 
-var bgmusic = new Audio('sounds/bgmusic.mp3');
-//bgmusic.play();
-
 let score = 0;
 let lives = 5;
 
