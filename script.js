@@ -155,7 +155,7 @@ function draw()
     } 
     else if (y + dy > canvas.height - ballRadius - 35) 
     {
-        if (x > paddleX && x < paddleX + paddleWidth) 
+        if (x > paddleX && x < paddleX + paddleWidth && y < paddleY) 
         {
             dy = -dy;
             playSound("hit");
