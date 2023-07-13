@@ -20,6 +20,9 @@ const paddleHeight = 15;
 const paddleWidth = 150;
 let paddleX = (canvas.width - paddleWidth) / 2;
 let paddleY = 0;
+let paddleLeft = false;
+let paddleRight = false;
+let paddleChange = 0;
 
 let downPressed = false;
 let rightPressed = false;
@@ -140,6 +143,7 @@ function draw()
     collisionDetection();
     drawScore();
     drawLives();
+    drawChange();
     x += dx;
     y += dy;
     
@@ -222,7 +226,7 @@ document.addEventListener("keydown", keyDownHandler, false);
 document.addEventListener("keyup", keyUpHandler, false);
 document.addEventListener("mousemove", mouseMoveHandler, false);
 
-//Event hnadler for the paddle
+//Event handler for the paddle
 function keyDownHandler(e) 
 {
     if (e.key === "Right" || e.key === "ArrowRight") 
@@ -257,10 +261,28 @@ function keyUpHandler(e)
 
 function mouseMoveHandler(e) 
 {
+    paddleChange = paddleX;
     const relativeX = e.clientX - canvas.offsetLeft;
     if (relativeX > 0 && relativeX < canvas.width) 
     {
         paddleX = relativeX - paddleWidth / 2;
+        if (paddleChange < paddleX)
+        {
+            paddleRight = true;
+        }
+        else
+        {
+            paddleRight = false;
+        }
+
+        if (paddleChange > paddleX)
+        {
+            paddleLeft = true;
+        }
+        else
+        {
+            paddleLeft = false;
+        }
     }
 }
 
@@ -302,6 +324,13 @@ function drawLives()
     ctx.font = "20px Arial";
     ctx.fillStyle = "#000000";
     ctx.fillText(`Lives: ${lives}`, 120, 35);
+}
+
+function drawChange() 
+{
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "#000000";
+    ctx.fillText(`PaddleX: ${paddleX}    Paddle Change: ${paddleChange}    Paddle Left: ${paddleLeft}    Paddle Right: ${paddleRight}`, 600, 35);
 }
 
 draw();
