@@ -338,10 +338,7 @@ function collisionDetection()
             {
                 if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) 
                 {
-                    if (dy < 0)
-                    {
-                        dy = -dy;
-                    }
+                    dy = -dy;
                     b.status = 0;
                     score++;
                     playSound("break");
