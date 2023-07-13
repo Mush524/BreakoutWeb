@@ -7,7 +7,7 @@ let score = 0;
 let lives = 5;
 
 let x = canvas.width / 2;
-let y = canvas.height - 90;
+let y = canvas.height - 120;
 
 let dx = 4;
 let dy = -4;
@@ -191,7 +191,14 @@ function draw()
     {
         if (x > paddleX && x < paddleX + paddleWidth && y < paddleY) 
         {
-            dy = -dy+2;
+            if (paddleRight)
+            {
+                dy = -dy+3;
+            }
+            else if (paddleLeft)
+            {
+                dy = -dy-3;
+            }
             playSound("hit");
         } 
     }
@@ -212,10 +219,8 @@ function draw()
         else 
         {
             x = canvas.width / 2;
-            y = canvas.height - 30;
+            y = canvas.height - 120;
             dy = -dy;
-            x = canvas.width / 2;
-            y = canvas.height - 60;
         }
 
     }
