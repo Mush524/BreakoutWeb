@@ -69,6 +69,18 @@ function playSound(e)
     }
 }
 
+function checkdy(distanceY)
+{
+    if (distanceY > 0)
+    {
+        dy = -4;
+    }
+    else
+    {
+        dy = 4;
+    }
+}
+
 function drawTrail()
 {
     ctxTrail.fillStyle = 'rgba(240, 240, 240, 0.18)';
@@ -158,19 +170,20 @@ function draw()
         {
             dx = 4;
         }
+        if (dy > 0)
+        {
+            dy = 4;
+        }
+        else
+        {
+            dy = -4;
+        }
         playSound("hit");
     }
 
     if (y + dy < ballRadius) 
     {
-        if (dy > 0)
-        {
-            dy = -4;
-        }
-        else
-        {
-            dy = 4;
-        }
+        checkdy(dy);
         playSound("hit");
     } 
     //the last value should be paddleHeight + paddleY
@@ -178,13 +191,13 @@ function draw()
     {
         if (x > paddleX && x < paddleX + paddleWidth && y < paddleY) 
         {
-            dy = -dy;
+            dy = -dy+2;
             playSound("hit");
         } 
     }
 
     //+300 to make it wait a bit before making a new ball
-    if (y + dy > canvas.height - ballRadius + 300)
+    if (y + dy > canvas.height - ballRadius + 200)
     {
 
         lives--;
@@ -309,7 +322,7 @@ function collisionDetection()
             {
                 if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) 
                 {
-                    dy = -dy;
+                    checkdy(dy);
                     b.status = 0;
                     score++;
                     playSound("break");
