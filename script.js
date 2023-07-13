@@ -5,9 +5,10 @@ const ctxTrail = layer2.getContext("2d");
 
 let score = 0;
 let lives = 5;
+let speed = 0;
 
 let x = canvas.width / 2;
-let y = canvas.height - 120;
+let y = canvas.height - 100;
 
 let dx = 4;
 let dy = -4;
@@ -191,14 +192,27 @@ function draw()
     {
         if (x > paddleX && x < paddleX + paddleWidth && y < paddleY) 
         {
-            if (paddleRight)
+            //Determines what angle for the ball to bounce at depending on the paddles speed
+            speed = (paddleX/paddleChange)*2;
+            if (paddleRight && dx > 0)
             {
-                dy = -dy+3;
+                dy = -dy+speed;
             }
-            else if (paddleLeft)
+            else if (paddleRight && dx < 0)
             {
-                dy = -dy-3;
+                dy = -dy-speed;
             }
+
+            if (paddleLeft && dx < 0)
+            {
+                dy = -dy+speed;
+            }
+            else if (paddleLeft && dx > 0)
+            {
+                dy = -dy-speed;
+            }
+
+
             playSound("hit");
         } 
     }
@@ -219,7 +233,7 @@ function draw()
         else 
         {
             x = canvas.width / 2;
-            y = canvas.height - 120;
+            y = canvas.height - 100;
             dy = -dy;
         }
 
