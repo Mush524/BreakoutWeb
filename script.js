@@ -70,18 +70,6 @@ function playSound(e)
     }
 }
 
-function checkdy(distanceY)
-{
-    if (distanceY > 0)
-    {
-        dy = -4;
-    }
-    else
-    {
-        dy = 4;
-    }
-}
-
 function drawTrail()
 {
     ctxTrail.fillStyle = 'rgba(240, 240, 240, 0.18)';
@@ -160,7 +148,7 @@ function draw()
     x += dx;
     y += dy;
     
-    //Collision Detection
+    //Collision detection for walls
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) 
     {
         if (dx > 0)
@@ -179,12 +167,16 @@ function draw()
         {
             dy = -4;
         }
+
         playSound("hit");
     }
 
     if (y + dy < ballRadius) 
     {
-        checkdy(dy);
+        if (dy > 0)
+        {
+            dy = -dy;
+        }
         playSound("hit");
     } 
     //the last value should be paddleHeight + paddleY
@@ -224,7 +216,6 @@ function draw()
     //+300 to make it wait a bit before making a new ball
     if (y + dy > canvas.height - ballRadius + 200)
     {
-
         lives--;
         playSound("death");
 
@@ -238,6 +229,7 @@ function draw()
         {
             x = canvas.width / 2;
             y = canvas.height - 100;
+            dx = 4;
             dy = -dy;
         }
 
@@ -334,6 +326,7 @@ function mouseMoveHandler(e)
     }
 }
 
+//Collision detection for the bricks
 function collisionDetection() 
 {
     for (let c = 0; c < brickColumnCount; c++) 
@@ -345,7 +338,10 @@ function collisionDetection()
             {
                 if (x > b.x && x < b.x + brickWidth && y > b.y && y < b.y + brickHeight) 
                 {
-                    checkdy(dy);
+                    if (dy < 0)
+                    {
+                        dy = -dy;
+                    }
                     b.status = 0;
                     score++;
                     playSound("break");
