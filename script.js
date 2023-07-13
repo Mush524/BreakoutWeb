@@ -150,13 +150,27 @@ function draw()
     //Collision Detection
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) 
     {
-        dx = -dx;
+        if (dx > 0)
+        {
+            dx = -4;
+        }
+        else
+        {
+            dx = 4;
+        }
         playSound("hit");
     }
 
     if (y + dy < ballRadius) 
     {
-        dy = -dy;
+        if (dy > 0)
+        {
+            dy = -4;
+        }
+        else
+        {
+            dy = 4;
+        }
         playSound("hit");
     } 
     //the last value should be paddleHeight + paddleY
@@ -186,8 +200,6 @@ function draw()
         {
             x = canvas.width / 2;
             y = canvas.height - 30;
-            dx = dx * 1.3;
-            dy = dy * 1.3;
             dy = -dy;
             x = canvas.width / 2;
             y = canvas.height - 60;
@@ -330,7 +342,7 @@ function drawChange()
 {
     ctx.font = "20px Arial";
     ctx.fillStyle = "#000000";
-    ctx.fillText(`PaddleX: ${paddleX}    Paddle Change: ${paddleChange}    Paddle Left: ${paddleLeft}    Paddle Right: ${paddleRight}`, 600, 35);
+    ctx.fillText(`PaddleX: ${paddleX}    Paddle Change: ${paddleChange}    Paddle Left: ${paddleLeft}    Paddle Right: ${paddleRight}    dx: ${dx}    dy: ${dy}`, 600, 35);
 }
 
 draw();
