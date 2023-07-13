@@ -76,7 +76,7 @@ function drawTrail()
     ctxTrail.fillRect(0, 0, layer2.width, layer2.height);
     ctxTrail.beginPath();
     ctxTrail.fillStyle = '#ff0000';
-    ctxTrail.arc(x, y, 6, 0, Math.PI*2);
+    ctxTrail.arc(x, y, ballRadius, 0, Math.PI*2);
     ctxTrail.fill();
 }
 
@@ -151,41 +151,23 @@ function draw()
     //Collision detection for walls
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) 
     {
-        if (dx > 0)
-        {
-            dx = -4;
-        }
-        else
-        {
-            dx = 4;
-        }
-        if (dy > 0)
-        {
-            dy = 4;
-        }
-        else
-        {
-            dy = -4;
-        }
-
+        dx = -dx;
         playSound("hit");
     }
 
     if (y + dy < ballRadius) 
     {
-        if (dy > 0)
-        {
-            dy = -dy;
-        }
+        dy = -dy;
         playSound("hit");
     } 
+    
     //the last value should be paddleHeight + paddleY
     else if (y + dy > canvas.height - ballRadius - 95) 
     {
         if (x > paddleX && x < paddleX + paddleWidth && y < paddleY) 
         {
             //Determines what angle for the ball to bounce at depending on the paddles speed
-            speed = (paddleX/paddleChange)*2;
+            speed = (paddleX/paddleChange)^2;
             if (paddleRight && dx > 0)
             {
                 dy = -dy+speed;
