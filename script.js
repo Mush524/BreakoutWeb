@@ -17,7 +17,7 @@ let ty = 0;
 
 const ballRadius = 6;
 const paddleHeight = 15;
-const paddleWidth = 120;
+const paddleWidth = 150;
 let paddleX = (canvas.width - paddleWidth) / 2;
 let paddleY = 0;
 
@@ -182,8 +182,8 @@ function draw()
         {
             x = canvas.width / 2;
             y = canvas.height - 30;
-            dx = dx * 1.5;
-            dy = dy * 1.5;
+            dx = dx * 1.3;
+            dy = dy * 1.3;
             dy = -dy;
             x = canvas.width / 2;
             y = canvas.height - 60;
