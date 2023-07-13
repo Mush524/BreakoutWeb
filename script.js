@@ -7,7 +7,7 @@ let score = 0;
 let lives = 5;
 
 let x = canvas.width / 2;
-let y = canvas.height - 60;
+let y = canvas.height - 90;
 
 let dx = 4;
 let dy = -4;
