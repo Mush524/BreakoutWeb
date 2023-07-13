@@ -212,6 +212,10 @@ function draw()
                 dy = -dy-speed;
             }
 
+            if(!paddleLeft && !paddleRight)
+            {
+                dy = -dy;
+            }
 
             playSound("hit");
         } 
