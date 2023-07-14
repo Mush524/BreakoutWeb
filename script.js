@@ -26,6 +26,7 @@ const paddleHeight = 15;
 const paddleWidth = 150;
 let paddleX = (canvas.width - paddleWidth) / 2;
 let paddleY = 0;
+let tempX = 0;
 
 let downPressed = false;
 let rightPressed = false;
@@ -77,12 +78,17 @@ function playSound(e)
 
 function drawMenu(show)
 {
-    ctxMenu.font = "20px Arial";
-    ctxMenu.fillStyle = "#FFFFFF";
-    ctxMenu.fillText(`Game Paused`, 0, 0);
+    ctxMenu.canvas.width  = window.innerWidth;
+    ctxMenu.canvas.height = window.innerHeight;
+    ctxMenu.font = '30px Arial';
+    ctxMenu.fillStyle = '#FFFFFF';
+    ctxMenu.textAlign = 'center';
+    ctxMenu.fillText('Game Paused', canvas.width/2, (canvas.height/2)-40);
+    ctxMenu.fillText(`Score: ${score}`, canvas.width/2, (canvas.height/2)+40);
+    
     if (show)
     {
-        menu.style.visibility = "visible";
+        menu.style.visibility = "visible";   
     }
     else
     {
@@ -149,9 +155,6 @@ function drawBricks()
     }
 }
 
-ctxMenu.canvas.width  = window.innerWidth;
-ctxMenu.canvas.height = window.innerHeight;
-
 ctxTrail.canvas.width  = window.innerWidth;
 ctxTrail.canvas.height = window.innerHeight;
 
@@ -170,6 +173,11 @@ function draw()
     drawMenu(menuShow);
     x += dx;
     y += dy;
+    if(menuShow)
+    {
+        x -= dx;
+        y -= dy;
+    }
 
     //Caps the speed
     if (dx > speedCap)
@@ -344,9 +352,13 @@ function keyUpHandler(e)
 
 function mouseMoveHandler(e) 
 {
-    paddleChange = paddleX;
+    tempX = paddleX;
     const relativeX = e.clientX - canvas.offsetLeft;
-    if (relativeX > 0 && relativeX < canvas.width) 
+    if (menuShow)
+    {
+        paddleX = tempX;
+    }
+    else if (relativeX > 0 && relativeX < canvas.width) 
     {
         paddleX = relativeX - paddleWidth / 2;
     }
