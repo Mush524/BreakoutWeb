@@ -169,7 +169,7 @@ function draw()
     collisionDetection();
     drawScore();
     drawLives();
-    drawChange();
+    //drawChange();
     drawMenu(menuShow);
     x += dx;
     y += dy;
@@ -393,14 +393,14 @@ function collisionDetection()
 
 function drawScore() 
 {
-    ctx.font = "20px Arial";
+    ctx.font = "22px Arial";
     ctx.fillStyle = "#000000";
-    ctx.fillText(`Score: ${score}`, 8, 35);
+    ctx.fillText(`Score: ${score}`, (canvas.width/2)-100, 35);
 }
 
 function drawLives() 
 {
-    ctx.fillText(`Lives: ${lives}`, 120, 35);
+    ctx.fillText(`Lives: ${lives}`, (canvas.width/2)+100, 35);
 }
 
 function drawChange() 
