@@ -174,7 +174,7 @@ function draw()
             dy = -dy;
             d = x-paddleX;
             //Determines what angle for the ball to bounce at depending on where it hits
-            if (dx > 0)
+            if (dx >= 0)
             {
                 if (d < 30)
                 {
@@ -360,7 +360,7 @@ function drawChange()
 {
     ctx.font = "20px Arial";
     ctx.fillStyle = "#000000";
-    ctx.fillText(`PaddleX: ${paddleX}    dx: ${dx}    dy: ${dy}    area where ball hit: ${d}`, 600, 35);
+    ctx.fillText(`PaddleX: ${paddleX}    dx: ${dx}    dy: ${dy}    ballX - paddleX: ${d}`, 600, 35);
 }
 
 draw();
