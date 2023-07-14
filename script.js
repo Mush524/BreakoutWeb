@@ -3,6 +3,7 @@ const layer2 = document.getElementById("layer2");
 const menu = document.getElementById("layer3")
 const ctx = canvas.getContext("2d");
 const ctxTrail = layer2.getContext("2d");
+const ctxMenu = menu.getContext("2d");
 
 let menuShow = false;
 let score = 0;
@@ -72,7 +73,8 @@ function playSound(e)
 
 function drawMenu()
 {
-    
+    ctxMenu.fillStyle = 'rgba(0, 0, 0, 0.5)';
+    requestAnimationFrame(drawMenu);
 }
 
 function drawTrail()
@@ -134,6 +136,8 @@ function drawBricks()
     }
 }
 
+ctxMenu.canvas.width  = window.innerWidth;
+ctxMenu.canvas.height = window.innerHeight;
 
 ctxTrail.canvas.width  = window.innerWidth;
 ctxTrail.canvas.height = window.innerHeight;
@@ -150,9 +154,18 @@ function draw()
     drawScore();
     drawLives();
     drawChange();
-    drawMenu();
     x += dx;
     y += dy;
+
+    //Caps the speed
+    if (dx > speedCap)
+    {
+        dx -= dx-speedCap;
+    }
+    else if (dx < -speedCap)
+    {
+        dx += dx+speedCap
+    }
     
     //Collision detection for walls
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) 
@@ -214,16 +227,6 @@ function draw()
                     dx += 1;
                 }
 
-            }
-
-            //Caps the speed
-            if (dx > speedCap)
-            {
-                dx -= dx-speedCap;
-            }
-            else if (dx < -speedCap)
-            {
-                dx += dx+speedCap
             }
             playSound("hit");
         } 
@@ -297,10 +300,16 @@ function keyDownHandler(e)
     {
         downPressed = true;
     }
-
-    if(e.key === "Escape")
+    else if(e.key === 'Escape' || e.key === 'Esc')
     {
-        menuShow = true;
+        if (menuShow)
+        {
+            menuShow = false;
+        }
+        else
+        {
+            menuShow = true;
+        }
     }
 }
 
@@ -375,7 +384,11 @@ function drawChange()
 {
     ctx.font = "20px Arial";
     ctx.fillStyle = "#000000";
-    ctx.fillText(`PaddleX: ${paddleX}    dx: ${dx}    dy: ${dy}    ballX - paddleX: ${d}`, 600, 35);
+    ctx.fillText(`PaddleX: ${paddleX}    dx: ${dx}    dy: ${dy}    ballX - paddleX: ${d}    show menu: ${menuShow}`, 600, 35);
 }
 
+if (menuShow)
+{
+    drawMenu();
+}
 draw();
