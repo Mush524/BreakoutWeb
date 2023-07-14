@@ -1,8 +1,10 @@
 const canvas = document.getElementById("layer1");
 const layer2 = document.getElementById("layer2");
+const menu = document.getElementById("layer3")
 const ctx = canvas.getContext("2d");
 const ctxTrail = layer2.getContext("2d");
 
+let menuShow = false;
 let score = 0;
 let lives = 5;
 let speedCap = 10;
@@ -66,6 +68,11 @@ function playSound(e)
         var death = new Audio('sounds/death.ogg');
         death.play();
     }
+}
+
+function drawMenu()
+{
+    
 }
 
 function drawTrail()
@@ -143,6 +150,7 @@ function draw()
     drawScore();
     drawLives();
     drawChange();
+    drawMenu();
     x += dx;
     y += dy;
     
@@ -288,6 +296,11 @@ function keyDownHandler(e)
     else if (e.key === "Down" || e.key === "ArrowDown")
     {
         downPressed = true;
+    }
+
+    if(e.key === "Escape")
+    {
+        menuShow = true;
     }
 }
 
