@@ -5,13 +5,13 @@ const ctxTrail = layer2.getContext("2d");
 
 let score = 0;
 let lives = 5;
-let speed = 0;
 
 let x = canvas.width / 2;
 let y = canvas.height - 100;
 
 let dx = 4;
 let dy = -4;
+let d = 0;
 
 let tx = 0;
 let ty = 0;
@@ -21,9 +21,6 @@ const paddleHeight = 15;
 const paddleWidth = 150;
 let paddleX = (canvas.width - paddleWidth) / 2;
 let paddleY = 0;
-let paddleLeft = false;
-let paddleRight = false;
-let paddleChange = 0;
 
 let downPressed = false;
 let rightPressed = false;
@@ -147,6 +144,14 @@ function draw()
     drawChange();
     x += dx;
     y += dy;
+    if (dx > 10)
+    {
+        dx -= dx-10;
+    }
+    else if (dx < -10)
+    {
+        dx += dx+10
+    }
     
     //Collision detection for walls
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) 
@@ -160,35 +165,54 @@ function draw()
         dy = -dy;
         playSound("hit");
     } 
-    
+
     //the last value should be paddleHeight + paddleY
     else if (y + dy > canvas.height - ballRadius - 95) 
     {
         if (x > paddleX && x < paddleX + paddleWidth && y < paddleY) 
         {
-            //Determines what angle for the ball to bounce at depending on the paddles speed
-            speed = (paddleX/paddleChange)^2;
-            if (paddleRight && dx > 0)
+            dy = -dy;
+            d = x-paddleX;
+            //Determines what angle for the ball to bounce at depending on where it hits
+            if (dx > 0)
             {
-                dy = -dy+speed;
-            }
-            else if (paddleRight && dx < 0)
-            {
-                dy = -dy-speed;
-            }
+                if (d < 30)
+                {
+                    dx -= 3;
+                }
+                else if (d < 60 && d > 30)
+                {
+                    dx -= 1;
+                }
+                else if (d < 120 && d > 90)
+                {
+                    dx += 3;
+                }
+                else if (d < 150 && d > 120)
+                {
+                    dx += 1;
+                }
 
-            if (paddleLeft && dx < 0)
-            {
-                dy = -dy+speed;
             }
-            else if (paddleLeft && dx > 0)
+            else if (dx < 0)
             {
-                dy = -dy-speed;
-            }
+                if (d < 30)
+                {
+                    dx -= 3;
+                }
+                else if (d < 60 && d > 30)
+                {
+                    dx -= 1;
+                }
+                else if (d < 120 && d > 90)
+                {
+                    dx += 3;
+                }
+                else if (d < 150 && d > 120)
+                {
+                    dx += 1;
+                }
 
-            if(!paddleLeft && !paddleRight)
-            {
-                dy = -dy;
             }
 
             playSound("hit");
@@ -288,23 +312,6 @@ function mouseMoveHandler(e)
     if (relativeX > 0 && relativeX < canvas.width) 
     {
         paddleX = relativeX - paddleWidth / 2;
-        if (paddleChange < paddleX)
-        {
-            paddleRight = true;
-        }
-        else
-        {
-            paddleRight = false;
-        }
-
-        if (paddleChange > paddleX)
-        {
-            paddleLeft = true;
-        }
-        else
-        {
-            paddleLeft = false;
-        }
     }
 }
 
@@ -353,7 +360,7 @@ function drawChange()
 {
     ctx.font = "20px Arial";
     ctx.fillStyle = "#000000";
-    ctx.fillText(`PaddleX: ${paddleX}    Paddle Change: ${paddleChange}    Paddle Left: ${paddleLeft}    Paddle Right: ${paddleRight}    dx: ${dx}    dy: ${dy}`, 600, 35);
+    ctx.fillText(`PaddleX: ${paddleX}    dx: ${dx}    dy: ${dy}    area where ball hit: ${d}`, 600, 35);
 }
 
 draw();
