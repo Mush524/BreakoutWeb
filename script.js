@@ -5,6 +5,7 @@ const ctxTrail = layer2.getContext("2d");
 
 let score = 0;
 let lives = 5;
+let speedCap = 10;
 
 let x = canvas.width / 2;
 let y = canvas.height - 100;
@@ -144,14 +145,6 @@ function draw()
     drawChange();
     x += dx;
     y += dy;
-    if (dx > 10)
-    {
-        dx -= dx-10;
-    }
-    else if (dx < -10)
-    {
-        dx += dx+10
-    }
     
     //Collision detection for walls
     if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) 
@@ -215,6 +208,15 @@ function draw()
 
             }
 
+            //Caps the speed
+            if (dx > speedCap)
+            {
+                dx -= dx-speedCap;
+            }
+            else if (dx < -speedCap)
+            {
+                dx += dx+speedCap
+            }
             playSound("hit");
         } 
     }
