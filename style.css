@@ -12,3 +12,8 @@ canvas
     background-size: cover;
     margin: 0 auto;
 }
+#layer3
+{
+  background-color: rgb(0, 0, 0, 0.8);
+  visibility: hidden;
+}

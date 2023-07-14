@@ -12,10 +12,10 @@ let speedCap = 10;
 let volume = 0.3;
 
 let x = canvas.width / 2;
-let y = canvas.height - 100;
+let y = canvas.height - 500;
 
-let dx = 4;
-let dy = -4;
+let dx = 0;
+let dy = 4;
 let d = 0;
 
 let tx = 0;
@@ -75,10 +75,19 @@ function playSound(e)
     }
 }
 
-function drawMenu()
+function drawMenu(show)
 {
-    ctxMenu.fillStyle = 'rgba(0, 0, 0, 0.5)';
-    requestAnimationFrame(drawMenu);
+    ctxMenu.font = "20px Arial";
+    ctxMenu.fillStyle = "#FFFFFF";
+    ctxMenu.fillText(`Game Paused`, 0, 0);
+    if (show)
+    {
+        menu.style.visibility = "visible";
+    }
+    else
+    {
+        menu.style.visibility = "hidden";
+    }
 }
 
 function drawTrail()
@@ -158,6 +167,7 @@ function draw()
     drawScore();
     drawLives();
     drawChange();
+    drawMenu(menuShow);
     x += dx;
     y += dy;
 
@@ -251,9 +261,8 @@ function draw()
         else 
         {
             x = canvas.width / 2;
-            y = canvas.height - 100;
-            dx = 4;
-            dy = -dy;
+            y = canvas.height - 500;
+            dx = 0; 
         }
 
     }
@@ -379,20 +388,12 @@ function drawScore()
 
 function drawLives() 
 {
-    ctx.font = "20px Arial";
-    ctx.fillStyle = "#000000";
     ctx.fillText(`Lives: ${lives}`, 120, 35);
 }
 
 function drawChange() 
 {
-    ctx.font = "20px Arial";
-    ctx.fillStyle = "#000000";
     ctx.fillText(`PaddleX: ${paddleX}    dx: ${dx}    dy: ${dy}    ballX - paddleX: ${d}    show menu: ${menuShow}`, 600, 35);
 }
 
-if (menuShow)
-{
-    drawMenu();
-}
 draw();
