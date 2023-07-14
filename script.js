@@ -9,6 +9,7 @@ let menuShow = false;
 let score = 0;
 let lives = 5;
 let speedCap = 10;
+let volume = 0.3;
 
 let x = canvas.width / 2;
 let y = canvas.height - 100;
@@ -57,16 +58,19 @@ function playSound(e)
     if (e == "hit")
     {
         var metal = new Audio('sounds/metal.ogg');
+        metal.volume = volume;
         metal.play();
     }
     else if (e == "break")
     {
         var hit = new Audio('sounds/break.ogg');
+        hit.volume = volume;
         hit.play();
     }
     else if (e == "death")
     {
         var death = new Audio('sounds/death.ogg');
+        death.volume = volume;
         death.play();
     }
 }
